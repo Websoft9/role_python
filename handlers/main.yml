@@ -1,3 +1,1 @@
-- name: Python3 Version
-  debug:
-    var: python3_ver
+
