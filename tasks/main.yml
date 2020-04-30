@@ -1,7 +1,7 @@
 - name: Install this role on {{ansible_os_family}}
   include: "{{ansible_os_family}}.yml"
 
-- name: Check Python3
-  shell: python3 -V 
-  register: python3_ver
-  notify: Python3 Version
+- name: Check Python version
+  shell: |
+    python2 -V 2>> /data/logs/install_version.txt
+    python3 -V 1>> /data/logs/install_version.txt
