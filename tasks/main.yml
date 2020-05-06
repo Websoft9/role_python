@@ -3,5 +3,5 @@
 
 - name: Check Python version
   shell: |
-    python2 -V 2>> /data/logs/install_version.txt
-    python3 -V 1>> /data/logs/install_version.txt
+    sudo sh -c "python2 -V 2>> /data/logs/install_version.txt"
+    sudo sh -c "python3 -V 1>> /data/logs/install_version.txt"
