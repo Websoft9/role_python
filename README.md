@@ -17,7 +17,7 @@ Make sure these requirements need before the installation
 
 ## Related roles
 
-This Role does not depend on other role variables in syntax, but it depend on other role before
+This Role does not depend on other role variables in syntax, but it depend on **common role** before
 
 ```
   roles:
