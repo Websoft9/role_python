@@ -10,4 +10,4 @@
 - name: Install Python applications
   include_tasks: apps_{{item}}.yml
   with_items: "{{python_applications}}"
-  when: python_applications is not none and python_applications != ""
+  when: python_applications is defined and python_applications != ""
