@@ -42,17 +42,10 @@ Ansible Role: template
 ## Example
 
 ```
-- name: Memcached
-  hosts: all
-  become: yes
-  become_method: sudo 
-  vars_files:
-    - vars/main.yml 
-
-  roles:
-    - {role: role_common, tags: "role_common"}
-    - {role: role_cloud, tags: "role_cloud"}
-    - {role: role_template, tags: "role_template"}
+# Python application name which you want to pull, data format: Lists
+python_applications: 
+  - ansible
+  - tensorflow
 ```
 
 ## FAQ
