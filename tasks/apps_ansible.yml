@@ -2,3 +2,8 @@
   pip:
     name: [ansible,requests,docker,PyMySQL,psycopg2-binary]
     executable: pip3
+    
+- name: Git ansible-test for user
+  - git:
+      repo: 'https://github.com/Websoft9test/ansible-test'
+      dest: /data/wwwroot
