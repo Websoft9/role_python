@@ -1,7 +1,7 @@
 Ansible Role: Python
 =========
 
-This Role used for install Python and some popular application for Python, e.g. Ansible, Tensorflow
+This Role used for install [Python](https://www.python.org/) and some popular application for Python, e.g. Ansible, Tensorflow
 
 ## Requirements
 
