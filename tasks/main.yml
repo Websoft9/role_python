@@ -5,3 +5,9 @@
   shell: |
     sudo sh -c "python2 -V 2>> /data/logs/install_version.txt"
     sudo sh -c "python3 -V 1>> /data/logs/install_version.txt"
+    
+# Python application installation
+- name: Install Python applications
+  include_tasks: apps_{{item}}.yml
+  with_items: "{{python_applications}}"
+  when: python_applications is not none and python_applications != ""
