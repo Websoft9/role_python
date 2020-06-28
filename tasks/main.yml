@@ -1,5 +1,8 @@
 - name: Install this role on {{ansible_os_family}}
   include: "{{ansible_os_family}}.yml"
+  
+- name: Upgrade pip3
+  shell: python3 -m pip install --upgrade pip
 
 - name: Check Python version
   shell: |
