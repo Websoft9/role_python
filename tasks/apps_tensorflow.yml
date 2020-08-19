@@ -1,4 +1,4 @@
 - name: Install Tensorflow
   pip:
-    name: [tensorflow,tensorflow-gpu]
+    name: [tensorflow]
     executable: pip3
