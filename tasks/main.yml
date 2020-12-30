@@ -11,6 +11,6 @@
     
 # Python application installation
 - name: Install Python applications
-  include_tasks: apps_{{item}}.yml
+  include_tasks: apps/{{item}}.yml
   with_items: "{{python_applications}}"
   when: python_applications is defined and python_applications != ""
