@@ -5,5 +5,5 @@
     
 - name: Git ansible-test for user
   - git:
-      repo: 'https://github.com/Websoft9test/ansible-test'
+      repo: 'https://github.com/Websoft9/ansible-test'
       dest: /data/apps
