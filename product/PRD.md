@@ -1,3 +1,8 @@
+## Python
+
+1. 安装 python2, python3, pip2, pip3
+2. 安装 virtualenvwrapper
+
 ## Django
 
 官方提供了 pip, apt/yum, git 三种安装方式，建议使用 pip 安装稳定发行版。
