@@ -1,7 +1,13 @@
-
+python_django_venv_name: "myenv"
+python_django_venv_path: ""
+python_tensorflow_venv_path: ""
+ 
 python_applications: []
-  # - ansible
+  # - django
   # - tensorflow
 
 python_applications_tensorflow: 
-  port: ""
+  port: "6006"
+
+python_applications_django: 
+  port: "8000"

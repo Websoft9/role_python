@@ -1,4 +1,28 @@
-- name: Install Tensorflow
-  pip:
-    name: [tensorflow]
-    executable: pip3
+# use `deactivate`  exit virtual environment 
+- name: Create virtual environment 
+  shell: python3 -m venv --system-site-packages {{python_tensorflow_venv_path}}
+
+- name: Install tensorflow and Strart tensorboard
+  shell: |
+    source {{python_tensorflow_venv_path}}/bin/activate 
+    pip install --upgrade tensorflow
+
+- name: Copy tensorboard.py
+  copy:
+    src: tensorflow_test.py
+    dest: tensorboard.py
+
+- name: Run tensorboard.py and Strarted tensorboard
+  shell: |
+    source {{python_tensorflow_venv_path}}/bin/activate && python tensorboard.py
+    tensorboard --logdir=logs/fit --bind_all --port {{python_applications_tensorflow.port}}
+
+- name: Check tensorflow version
+  shell: sudo echo "tensorflow version:" $(tensorboard --version_tb) |sudo tee -a /data/logs/install_version.txt
+
+
+  
+
+
+
+

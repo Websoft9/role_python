@@ -1,0 +1,59 @@
+---
+- name: Create django venv directory
+  file:
+    path: {{python_django_venv_path}}
+    state: directory
+      
+- name: Install django on venv
+  shell: |
+    export WORKON_HOME={{python_django_venv_path}}
+    source /usr/local/bin/virtualenvwrapper.sh
+    mkvirtualenv {{python_django_venv_name}}
+    pip install django
+
+- name: Create link for django-admin
+  file:
+    src: '{{python_django_venv_path}}/{{python_django_venv_name}}/bin/django-admin'
+    dest: '/usr/bin/django'
+    state: link
+    
+- name: Create Demo Project
+  shell: |
+    rm -rf django_project
+    django-admin startproject django_project
+  args:
+    chdir: /data/wwwroot/
+
+- name: copy Django config
+  copy:
+    src: django_settings.py
+    dest: /data/wwwroot/django_project/django_project
+
+- name: config uwsgi
+  copy:
+   src: django.ini
+   dest: /etc/uwsgi.d/django.ini
+   owner: uwsgi
+   group: uwsgi
+
+- name: copy Nginx config
+  copy:
+    src: django.conf
+    dest: /etc/nginx/conf.d/default.conf
+
+- name: Restart uwsgi and Nginx
+  service: 
+    name: "{{item}}"
+    state: restarted
+    enabled: yes
+  with_items:
+    - uwsgi
+    - nginx
+
+- name: Check django version
+  shell: sudo echo "django version:" $(django-admin  version) |sudo tee -a /data/logs/install_version.txt
+
+- name: Check uwsgi Service
+  shell: systemctl status uwsgi | grep Active*
+  register: check_uwsgi_service
+  notify: check_uwsgi_service

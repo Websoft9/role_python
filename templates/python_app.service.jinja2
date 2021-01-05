@@ -1,1 +1,13 @@
 
+[Unit]
+Description={{python_applications}}
+
+{% if {{python_applications}} == tensorflow %}
+[Service]
+Type=simple
+ExecStart=/bin/bash -c 'source /root/venv/bin/activate; tensorboard --logdir=logs/fit --bind_all --port {{ python_applications_tensorflow.port }}'
+Environment="PATH={{ python_tensorflow_venv_path }}/bin:{{ ansible_env.PATH }}"
+{% endif %}
+
+[Install]
+WantedBy=multi-user.targ

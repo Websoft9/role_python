@@ -1,1 +1,3 @@
-
+- name: check_uwsgi_service
+  debug:
+    var: check_uwsgi_service.stdout
