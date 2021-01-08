@@ -4,11 +4,6 @@
 - name: Upgrade pip3
   shell: python3 -m pip install --upgrade pip
 
-- name: Install virtualenvwrapper for django
-  pip:
-    name: virtualenvwrapper
-    executable: pip
-
 - name: Check Python version
   shell: |
     sudo sh -c "python2 -V 2>> /data/logs/install_version.txt"

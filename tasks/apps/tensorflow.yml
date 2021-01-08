@@ -2,7 +2,6 @@
   pip: 
     name: tensorflow
     virtualenv: "{{python_venv_path}}"
-    virtualenv_command: python3 -m venv --system-site-packages {{python_venv_path}}
 
 - name: Copy tensorboard.py
   copy:
@@ -11,7 +10,7 @@
 
 - name: Run tensorboard.py and Strarted tensorboard
   shell: |
-    source {{python_tensorflow_venv_path}}/bin/activate && python tensorboard.py
+    source {{python_venv_path}}/bin/activate && python tensorboard.py
     tensorboard --logdir=logs/fit --bind_all --port {{python_applications_tensorflow.port}}
 
 - name: Check tensorflow version
