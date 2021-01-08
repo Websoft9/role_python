@@ -1,6 +1,4 @@
-python_django_venv_name: "myenv"
-python_django_venv_path: "/opt"
-python_tensorflow_venv_path: "/opt"
+python_venv_path: "/opt/venv"
  
 python_applications: []
   # - django

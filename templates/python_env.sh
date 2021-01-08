@@ -1,0 +1,1 @@
+export PATH={{python_venv_path}}/bin:$PATH

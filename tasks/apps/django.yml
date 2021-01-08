@@ -1,21 +1,9 @@
----
-- name: Create django venv directory
-  file:
-    path: {{python_django_venv_path}}
-    state: directory
-      
-- name: Install django on venv
-  shell: |
-    export WORKON_HOME={{python_django_venv_path}}
-    source /usr/local/bin/virtualenvwrapper.sh
-    mkvirtualenv {{python_django_venv_name}}
-    pip install django
-
-- name: Create link for django-admin
-  file:
-    src: '{{python_django_venv_path}}/{{python_django_venv_name}}/bin/django-admin'
-    dest: '/usr/bin/django'
-    state: link
+# ---
+- name: Install Django
+  pip: 
+    name: django
+    virtualenv: "{{python_venv_path}}"
+    virtualenv_command: python3 -m venv --system-site-packages {{python_venv_path}}
     
 - name: Create Demo Project
   shell: |

@@ -1,6 +1,6 @@
 - debug: msg="Python2 and Python3 is installed"
 
-- name: Install venv for tensorflow
+- name: Install venv 
   apt:
     name: [python3-dev,python3-pip,python3-venv]
   update_cache: yes

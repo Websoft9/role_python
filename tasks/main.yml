@@ -13,7 +13,16 @@
   shell: |
     sudo sh -c "python2 -V 2>> /data/logs/install_version.txt"
     sudo sh -c "python3 -V 1>> /data/logs/install_version.txt"
-    
+
+## prepare installation
+- name: Create venv environment
+  shell: python3 -m venv --system-site-packages {{python_venv_path}}  
+
+- name: copy python_env.sh
+  template:
+    src: python_env.sh
+    dest: /etc/profile.d
+
 # Python application installation
 - name: Install Python applications
   include_tasks: apps/{{item}}.yml

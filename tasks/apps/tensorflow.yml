@@ -1,11 +1,8 @@
-# use `deactivate`  exit virtual environment 
-- name: Create virtual environment 
-  shell: python3 -m venv --system-site-packages {{python_tensorflow_venv_path}}
-
-- name: Install tensorflow and Strart tensorboard
-  shell: |
-    source {{python_tensorflow_venv_path}}/bin/activate 
-    pip install --upgrade tensorflow
+- name: Install tensorflow
+  pip: 
+    name: tensorflow
+    virtualenv: "{{python_venv_path}}"
+    virtualenv_command: python3 -m venv --system-site-packages {{python_venv_path}}
 
 - name: Copy tensorboard.py
   copy:
