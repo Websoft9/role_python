@@ -2,6 +2,7 @@
   pip: 
     name: tensorflow
     virtualenv: "{{python_venv_path}}"
+    virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}"
 
 - name: Copy tensorboard.py
   copy:
@@ -12,6 +13,7 @@
   shell: |
     source {{python_venv_path}}/bin/activate && python tensorboard.py
     tensorboard --logdir=logs/fit --bind_all --port {{python_applications_tensorflow.port}}
+    deactivate
 
 - name: Check tensorflow version
   shell: sudo echo "tensorflow version:" $(tensorboard --version_tb) |sudo tee -a /data/logs/install_version.txt
