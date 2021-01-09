@@ -19,7 +19,7 @@
     dest: /etc/profile.d
 
 - name: Upgrade pip on venv
-  shell: "{{python_venv_path}}"/bin/pip install --upgrade pip
+  shell: {{python_venv_path/bin/pip}} install --upgrade pip
 
 # Python application installation
 - name: Install Python applications
