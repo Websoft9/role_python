@@ -1,5 +1,8 @@
-- debug: msg="Python2 and Python3 is installed"
+- name: Install python3
+  apt:
+    name: "{{python_version_meta[Debian].python_version}}"
+    update_cache: yes
 
 - name: Install venv 
   apt:
-    name: python3-venv
+    name: python3-venvs

@@ -1,6 +1,11 @@
-python_down_url:
-  '3.6': https://www.python.org/ftp/python/3.6.9/Python-3.6.9.tar.xz
-  '3.7': https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tar.xz
-  '3.8': https://www.python.org/ftp/python/3.8.7/Python-3.8.7.tar.xz
+python_version_meta:
+  RedHat:
+    '3.6': "python36"
+    '3.7': ""
+    '3.8': ""
+  Debian:
+    '3.6': "python3.6"
+    '3.7': "python3.7"
+    '3.8': "python3.8"
 
     

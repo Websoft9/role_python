@@ -1,6 +1,6 @@
 python_version: "3.6"
 
-python_venv_path: "/opt/venv"
+python_venv_path: "/data/apps"
  
 python_applications: []
   # - django

@@ -1,21 +1,31 @@
 # ---
+- name: Create python_applications dir on venv
+  file:
+    path: "{{python_venv_path}}/{{python_applications}}"
+    state: directory
+
 - name: Install Django
   pip: 
     name: django
     virtualenv: "{{python_venv_path}}"
     virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}"
-    
+
+- name: copy python_env.sh
+  template:
+    src: python_env.sh 
+    dest: /etc/profile.d
+
 - name: Create Demo Project
   shell: |
     rm -rf django_project
     django-admin startproject django_project
   args:
-    chdir: /data/wwwroot/
+    chdir: "{{python_venv_path}}/{{python_applications}}"
 
 - name: copy Django config
   copy:
     src: django_settings.py
-    dest: /data/wwwroot/django_project/django_project
+    dest: "{{python_venv_path}}/{{python_applications}}/django_project/django_project"
 
 - name: config uwsgi
   copy:

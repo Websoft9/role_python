@@ -4,14 +4,19 @@
     virtualenv: "{{python_venv_path}}"
     virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}"
 
+- name: copy python_env.sh
+  template:
+    src: python_env.sh 
+    dest: /etc/profile.d
+    
 - name: Copy tensorboard.py
   copy:
     src: tensorflow_test.py
-    dest: tensorboard.py
+    dest: {{python_venv_path}}/tensorboard.py
 
 - name: Run tensorboard.py and Strarted tensorboard
   shell: |
-    source {{python_venv_path}}/bin/activate && python tensorboard.py
+    source {{python_venv_path}}/bin/activate && python {{python_venv_path}}/tensorboard.py
     tensorboard --logdir=logs/fit --bind_all --port {{python_applications_tensorflow.port}}
     deactivate
 

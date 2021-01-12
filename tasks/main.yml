@@ -1,26 +1,33 @@
 - name: Install this role on {{ansible_os_family}}
   include: "{{ansible_os_family}}.yml"
+
+- name: copy python_alias.sh
+  template:
+    src: python_alias.sh
+    dest: /etc/profile.d
     
 - name: Upgrade pip3
-  shell: python3 -m pip install --upgrade pip
+  shell: |
+    sourse /etc/profile.d/python_alias.sh 
+    python3 -m pip install --upgrade pip
+  args:
+    executable: /bin/bash 
 
 - name: Check Python version
   shell: |
-    sudo sh -c "python2 -V 2>> /data/logs/install_version.txt"
-    sudo sh -c "python3 -V 1>> /data/logs/install_version.txt"
+    sudo echo  $(python2 -V) |sudo tee -a /data/logs/install_version.txt
+    sudo echo  $(python3 -V) |sudo tee -a /data/logs/install_version.txt 
+    sudo echo  $(pip3 -V) |sudo tee -a /data/logs/install_version.txt
 
 ## prepare python application installation
 - name: Create venv environment
   shell: python3 -m venv --system-site-packages {{python_venv_path}}  
 
-- name: copy python_env.sh
-  template:
-    src: python_env.sh
-    dest: /etc/profile.d
+
 
 - name: Upgrade pip on venv
   shell: >
-    {{python_venv_path/bin/pip}} install --upgrade pip
+    {{python_venv_path}}/bin/pip install --upgrade pip
 
 # Python application installation
 - name: Install Python applications
