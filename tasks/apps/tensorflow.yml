@@ -8,16 +8,14 @@
   shell: >
     {{python_venv_path}}/bin/pip install --upgrade pip
 
-- name: Copy python_env.sh
+- name: Copy python_env.sh and tensorflow.service file 
   template:
-    src: python_env.sh 
-    dest: /etc/profile.d
+    src: '{{item.src}}'
+    dest: '{{item.dest}}'
+  with_items:
+    - {src: python_env.sh,dest: /etc/profile.d}
+    - {src: python_app.service.jinja2,dest: /lib/systemd/system/tensorflow.service}
     
-- name: Copy tensorflow.service file
-  copy:
-    src: python_app.service.jinja2
-    dest: /lib/systemd/system/tensorflow.service
-
 - name: restatrt and enabled tensorflow
   service:
     name: tensorflow
