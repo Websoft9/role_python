@@ -9,11 +9,15 @@
     name: django
     virtualenv: "{{python_venv_path}}"
     virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}"
-
+    
 - name: copy python_env.sh
   template:
     src: python_env.sh 
     dest: /etc/profile.d
+
+- name: Upgrade pip on venv
+  shell: >
+    {{python_venv_path}}/bin/pip install --upgrade pip
 
 - name: Create Demo Project
   shell: |

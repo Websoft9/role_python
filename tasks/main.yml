@@ -19,16 +19,6 @@
     sudo echo  $(python3 -V) |sudo tee -a /data/logs/install_version.txt 
     sudo echo  $(pip3 -V) |sudo tee -a /data/logs/install_version.txt
 
-## prepare python application installation
-- name: Create venv environment
-  shell: python3 -m venv --system-site-packages {{python_venv_path}}  
-
-
-
-- name: Upgrade pip on venv
-  shell: >
-    {{python_venv_path}}/bin/pip install --upgrade pip
-
 # Python application installation
 - name: Install Python applications
   include_tasks: apps/{{item}}.yml
