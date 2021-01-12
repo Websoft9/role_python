@@ -1,6 +1,6 @@
 - name: Install python3
   yum:
-    name: "{{python_version_meta[{{python_version}}].Redhat}}"
+    name: "{{python_version_meta[python_version].Redhat}}"
     update_cache: yes
 
 
