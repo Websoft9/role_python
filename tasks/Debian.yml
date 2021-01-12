@@ -1,8 +1,8 @@
 - name: Install python3
   apt:
-    name: {{python_version_meta[python_version].Debian}}
+    name: "{{python_version_meta[python_version].Debian}}"
     update_cache: yes
 
 - name: Install venv 
   apt:
-    name: python3-venvs
+    name: python3-venv
