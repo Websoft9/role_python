@@ -31,11 +31,6 @@
     dest: '/data/wwwroot/'
     state: link
     force: yes
-
-- name: Install uwsgi 
-  shell: |
-    command -v yum && yum install uwsgi -y
-    command -v apt && apt install uwsgi -y
        
 - name: config uwsgi
   template:
