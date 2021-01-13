@@ -6,8 +6,8 @@
 - name: Install Django
   pip: 
     name: django
-    virtualenv: "{{python_venv_path}}"
-    virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}"
+    virtualenv: "{{python_venv_path}}/{{python_applications}}"
+    virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
     
 - name: copy python_env.sh
   template:
@@ -16,19 +16,19 @@
 
 - name: Upgrade pip on venv
   shell: >
-    {{python_venv_path}}/bin/pip install --upgrade pip
+    {{python_venv_path}}/{{python_applications}}/bin/pip install --upgrade pip
 
 - name: Create Demo Project
   shell: |
     rm -rf django_project
-    {{python_venv_path}}/bin/django-admin startproject django_project
+    ./bin/django-admin startproject django_project
   args:
     chdir: "{{python_venv_path}}/{{python_applications}}"
 
 - name: Create link for django
   file: 
     src: '{{python_venv_path}}/{{python_applications}}/'
-    dest: '/data/wwwroot/'
+    dest: '/data/wwwroot/{{python_applications}}'
     state: link
     force: yes
        

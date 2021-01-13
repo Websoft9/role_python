@@ -1,1 +1,1 @@
-alias python3='/usr/bin/{{python_version}}'
+alias python3='/usr/bin/python{{python_version}}'

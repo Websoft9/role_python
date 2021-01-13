@@ -3,7 +3,7 @@ Description={{python_applications}}
 
 [Service]
 Type=simple
-Environment="PATH={{python_venv_path}}/bin:{{ ansible_env.PATH }}"
+Environment="PATH={{python_venv_path}}/{{python_applications}}/bin:{{ ansible_env.PATH }}"
 {% if python_applications == "tensorflow" %}
 ExecStart=/bin/bash -c 'source {{python_venv_path}}/bin/activate; tensorboard --logdir=logs/fit --port {{ python_applications_tensorflow.port }}'
 {% endif %}
