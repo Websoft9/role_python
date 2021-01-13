@@ -19,6 +19,11 @@
   shell: >
     {{python_venv_path}}/bin/pip install --upgrade pip
 
+- name: Get django-admin cmd
+  shell: source /etc/profile.d/python_env.sh
+  args:
+    executable: /bin/bash    
+
 - name: Create Demo Project
   shell: |
     rm -rf django_project

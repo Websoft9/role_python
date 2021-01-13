@@ -4,10 +4,6 @@
     virtualenv: "{{python_venv_path}}"
     virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}"
 
-- name: Upgrade pip on venv
-  shell: >
-    {{python_venv_path}}/bin/pip install --upgrade pip
-
 - name: Copy python_env.sh and tensorflow.service file 
   template:
     src: '{{item.src}}'
@@ -15,7 +11,11 @@
   with_items:
     - {src: python_env.sh,dest: /etc/profile.d}
     - {src: python_app.service.jinja2,dest: /lib/systemd/system/tensorflow.service}
-    
+
+- name: Upgrade pip on venv
+  shell: >
+    {{python_venv_path}}/bin/pip install --upgrade pip
+
 - name: restatrt and enabled tensorflow
   service:
     name: tensorflow
@@ -24,7 +24,7 @@
  
 - name: Check tensorflow version
   shell: sudo echo "tensorflow version:" $(tensorboard --version_tb) |sudo tee -a /data/logs/install_version.txt
-
+  
 
   
 
