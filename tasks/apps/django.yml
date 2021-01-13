@@ -48,6 +48,7 @@
   copy:
     src: django.conf
     dest: /etc/nginx/conf.d/default.conf
+    force: yes
 
 - name: Restart uwsgi and Nginx
   service: 
