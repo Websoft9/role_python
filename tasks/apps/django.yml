@@ -25,10 +25,10 @@
   args:
     chdir: "{{python_venv_path}}/{{python_applications}}"
 
-- name: copy Django config
-  copy:
-    src: django_settings.py
-    dest: "{{python_venv_path}}/{{python_applications}}/django_project/django_project"
+# - name: copy Django config
+#   copy:
+#     src: django_settings.py
+#     dest: "{{python_venv_path}}/{{python_applications}}/django_project/django_project"
 
 - name: Create link for django
   file: 
