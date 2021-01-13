@@ -1,4 +1,3 @@
-# ---
 - name: Create python_applications dir on venv
   file:
     path: "{{python_venv_path}}/{{python_applications}}"
@@ -31,10 +30,17 @@
     src: django_settings.py
     dest: "{{python_venv_path}}/{{python_applications}}/django_project/django_project"
 
+- name: Create link for django
+  file: 
+    src: '{{python_venv_path}}/{{python_applications}}/'
+    dest: '/data/wwwroot/'
+    state: link
+    force: yes
+
 - name: config uwsgi
   copy:
    src: django.ini
-   dest: /etc/uwsgi.d/django.ini
+   dest: /etc/uwsgi/django.ini
    owner: uwsgi
    group: uwsgi
 
