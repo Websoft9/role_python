@@ -6,12 +6,23 @@
   file:
     path: "{{python_venv_path}}/{{python_applications}}"
     state: directory
-
+  
 - name: Upgrade pip3 on venv
   shell: |
     python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
     "{{python_venv_path}}/{{python_applications}}"/bin/python3 -m pip install --upgrade pip
 
+- name: Download sqlite3
+  unarchive:
+      src: "https://www.sqlite.org/2020/sqlite-tools-linux-x86-3340000.zip"
+      dest: /opt
+
+- name: Upgrade sqlite3 3.17 to 3.34
+  shell: |
+    command -v yum && yum erase sqlite3 -y
+    ln -sf /opt/sqlite-*/sqlite3 /usr/bin/sqlite3
+    export LD_LIBRARY_PATH="/data/apps/django/lib"
+    
 ## install apps
 - name: Install Django and uwsgi
   pip: 
