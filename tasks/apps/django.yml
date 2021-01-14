@@ -1,11 +1,21 @@
+## prepare_installation
+- name: Install gcc on Redhat
+  shell: command -v gcc  && yum install gcc -y
+
 - name: Create python_applications dir on venv
   file:
     path: "{{python_venv_path}}/{{python_applications}}"
     state: directory
 
+## install apps
+- name: Upgrade pip3 on venv
+  shell: |
+    python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
+    "{{python_venv_path}}/{{python_applications}}"/bin/python3 -m pip install --upgrade pip
+
 - name: Install Django and uwsgi
   pip: 
-    name: {{item}}
+    name: "{{item}}"
     virtualenv: "{{python_venv_path}}/{{python_applications}}"
     virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
   with_items:
@@ -28,6 +38,7 @@
   args:
     chdir: "{{python_venv_path}}/{{python_applications}}"
 
+## configure
 - name: Create link for django
   file: 
     src: '{{python_venv_path}}/{{python_applications}}/'
@@ -42,7 +53,6 @@
     force: yes
   with_items:
     - {src: django.ini,dest: /data/apps/django/django.ini}
-    - {src: django.conf,dest: /etc/nginx/conf.d/default.conf}
     - {src: django_app.service,dest: /lib/systemd/system/django.service}
     
 - name: Restart django and Nginx
@@ -54,6 +64,7 @@
     - django
     - nginx
 
+# check 
 - name: Check django version
   shell: sudo echo "django version:" $(django-admin  version) |sudo tee -a /data/logs/install_version.txt
 

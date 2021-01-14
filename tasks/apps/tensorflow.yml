@@ -1,8 +1,14 @@
+## prepare_installation
+- name: Upgrade pip3 on venv
+  shell: |
+    python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
+    "{{python_venv_path}}/{{python_applications}}"/bin/python3 -m pip install --upgrade pip
+
+## install apps
 - name: Install tensorflow
   pip: 
     name: tensorflow
     virtualenv: "{{python_venv_path}}/{{python_applications}}"
-    virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
 
 - name: Copy python_env.sh and tensorflow.service file 
   template:
@@ -11,10 +17,6 @@
   with_items:
     - {src: python_env.sh,dest: /etc/profile.d}
     - {src: tensorflow_app.service,dest: /lib/systemd/system/tensorflow.service}
-
-- name: Upgrade pip on venv
-  shell: >
-    {{python_venv_path}}/{{python_applications}}/bin/pip install --upgrade pip
 
 - name: restatrt and enabled tensorflow
   service:
