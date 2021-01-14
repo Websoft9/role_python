@@ -1,0 +1,12 @@
+[Unit]
+Description=My {{python_applications}} app
+Requires=network.target
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/data/apps/django
+ExecStart={{python_venv_path}}/{{python_applications}}/bin/uwsgi --ini {{python_venv_path}}/{{python_applications}}/django.ini
+
+[Install]
+WantedBy=multi-user.targe

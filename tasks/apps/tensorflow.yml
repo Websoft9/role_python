@@ -10,7 +10,7 @@
     dest: '{{item.dest}}'
   with_items:
     - {src: python_env.sh,dest: /etc/profile.d}
-    - {src: python_app.service.jinja2,dest: /lib/systemd/system/tensorflow.service}
+    - {src: tensorflow_app.service,dest: /lib/systemd/system/tensorflow.service}
 
 - name: Upgrade pip on venv
   shell: >
