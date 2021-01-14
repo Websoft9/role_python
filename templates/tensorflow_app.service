@@ -9,7 +9,7 @@ Environment="PATH={{python_venv_path}}/{{python_applications}}/bin:{{ ansible_en
 ExecStart=/bin/bash -c 'source {{python_venv_path}}/bin/activate; tensorboard --logdir=logs/fit --port {{ python_applications_tensorflow.port }}'
 
 [Install]
-WantedBy=multi-user.targe
+WantedBy=multi-user.target
 
 
 

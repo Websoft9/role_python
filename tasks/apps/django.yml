@@ -7,17 +7,16 @@
     path: "{{python_venv_path}}/{{python_applications}}"
     state: directory
 
-## install apps
 - name: Upgrade pip3 on venv
   shell: |
     python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
     "{{python_venv_path}}/{{python_applications}}"/bin/python3 -m pip install --upgrade pip
 
+## install apps
 - name: Install Django and uwsgi
   pip: 
     name: "{{item}}"
     virtualenv: "{{python_venv_path}}/{{python_applications}}"
-    virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
   with_items:
     - django
     - uwsgi
@@ -26,10 +25,6 @@
   template:
     src: python_env.sh 
     dest: /etc/profile.d
-
-- name: Upgrade pip on venv
-  shell: >
-    {{python_venv_path}}/{{python_applications}}/bin/pip install --upgrade pip
 
 - name: Create Demo Project
   shell: |
@@ -45,8 +40,8 @@
     dest: '/data/wwwroot/{{python_applications}}'
     state: link
     force: yes
-       
-- name: config uwsgi
+      
+- name: Configure uwsgi
   template:
     src: '{{item.src}}'
     dest: '{{item.dest}}'
@@ -54,7 +49,14 @@
   with_items:
     - {src: django.ini,dest: /data/apps/django/django.ini}
     - {src: django_app.service,dest: /lib/systemd/system/django.service}
-    
+
+- name: Open Internet access
+  lineinfile:
+      dest: "{{python_venv_path}}/{{python_applications}}/django_project/django_project/settings.py"
+      regexp: "^ALLOWED_HOSTS .*"
+      line: "ALLOWED_HOSTS = ['*']"
+      backrefs: yes  
+
 - name: Restart django and Nginx
   service: 
     name: "{{item}}"
@@ -68,7 +70,7 @@
 - name: Check django version
   shell: sudo echo "django version:" $(django-admin  version) |sudo tee -a /data/logs/install_version.txt
 
-- name: Check uwsgi Service
+- name: Check django Service
   shell: systemctl status django | grep Active*
   register: check_django_service
   notify: check_django_service
