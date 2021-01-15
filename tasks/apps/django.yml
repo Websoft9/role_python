@@ -19,7 +19,6 @@
 
 - name: Upgrade sqlite3 3.17 to 3.34
   shell: |
-    command -v yum && yum erase sqlite3 -y
     ln -sf /opt/sqlite-*/sqlite3 /usr/bin/sqlite3
     export LD_LIBRARY_PATH="/data/apps/django/lib"
     
