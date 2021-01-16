@@ -1,8 +1,8 @@
 ## prepare_installation
-- name: Install gcc on Redhat
-  yum:
-    name: gcc 
-  when: ansible_os_family == RedHat
+# - name: Install gcc on Redhat
+#   yum:
+#     name: gcc 
+#   when: ansible_os_family == RedHat
 
 - name: Create python_applications dir on venv
   file:
