@@ -1,9 +1,4 @@
 # prepare_installation
-- name: Install gcc on Redhat
-  yum:
-    name: gcc 
-  when: ansible_os_family == "RedHat"
-
 - name: Create python_applications dir on venv
   file:
     path: "{{python_venv_path}}/{{python_applications}}"
@@ -14,19 +9,33 @@
     python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
     "{{python_venv_path}}/{{python_applications}}"/bin/python3 -m pip install --upgrade pip
 
-# - name: Download sqlite3 
-#   unarchive:
-#       src: "http://www.sqlite.org/2020/sqlite-autoconf-3340000.tar.gz"
-#       dest: /opt
-#       remote_src: yes
+- block:
+  - name: Install gcc on Redhat
+    yum:
+      name: gcc
+
+  - name: Download latest sqlite3
+    unarchive:
+        src: "{{python_applications_django.sqlite3_down_url}}"
+        dest: /opt
+        remote_src: yes
       
-# - name: Upgrade sqlite3 3.17 to 3.34
-#   shell: |
-#     cd /opt/sqlite-*
-#     ./configure --prefix=/data/apps/django
-#     make && make install 
-#     export LD_LIBRARY_PATH="/data/apps/django/lib"
-#     ln -sf /opt/sqlite-*/sqlite3 /usr/bin/sqlite3
+  - name: Upgrade sqlite3
+    shell: |
+      cd /opt/sqlite-*
+      ./configure --prefix=/opt
+      make && make install 
+
+  - name: Create link for sqlite3
+    file:
+      src: '{{item.src}}'
+      dest: '{{item.dest}}'
+      state: link
+      force: yes
+    with_items:
+      - {src: /opt/bin/sqlite3,dest: /usr/bin/sqlite3}
+      - {src: /opt/libsqlite3.so.0.8.6,dest: /usr/lib64/libsqlite3.so.0.8.6}
+when: ansible_os_family == "RedHat"
     
 ## install apps
 - name: Install Django and uwsgi
@@ -85,7 +94,7 @@
 
 # check 
 - name: Check django version
-  shell: sudo echo "django version:" $(django-admin  version) |sudo tee -a /data/logs/install_version.txt
+  shell: sudo echo "django version:" $({{python_venv_path}}/{{python_applications}}/django-admin  version) |sudo tee -a /data/logs/install_version.txt
 
 - name: Check django Service
   shell: systemctl status django | grep Active*
