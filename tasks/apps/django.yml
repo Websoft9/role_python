@@ -1,8 +1,8 @@
-## prepare_installation
-# - name: Install gcc on Redhat
-#   yum:
-#     name: gcc 
-#   when: ansible_os_family == RedHat
+# prepare_installation
+- name: Install gcc on Redhat
+  yum:
+    name: gcc 
+  when: ansible_os_family == "RedHat"
 
 - name: Create python_applications dir on venv
   file:
@@ -33,6 +33,7 @@
   pip: 
     name: "{{item}}"
     virtualenv: "{{python_venv_path}}/{{python_applications}}"
+    virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
   with_items:
     - django
     - uwsgi
