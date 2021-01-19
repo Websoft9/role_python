@@ -34,7 +34,7 @@
       force: yes
     with_items:
       - {src: /opt/bin/sqlite3,dest: /usr/bin/sqlite3}
-      - {src: /opt/libsqlite3.so.0.8.6,dest: /usr/lib64/libsqlite3.so.0.8.6}
+      - {src: /opt/lib/libsqlite3.so.0.8.6,dest: /usr/lib64/libsqlite3.so.0.8.6}
   when: ansible_os_family == "RedHat"
     
 ## install apps
