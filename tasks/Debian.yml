@@ -3,6 +3,8 @@
     name: "{{python_version_meta[python_version].Debian}}"
     update_cache: yes
 
+# The virtual environment was not created successfully because ensurepip is not
+# available.  On Debian/Ubuntu systems, you need to install the python3-venv
 - name: Install venv 
   apt:
     name: python3-venv
