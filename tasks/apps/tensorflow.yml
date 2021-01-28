@@ -1,0 +1,35 @@
+## prepare_installation
+- name: Upgrade pip3 on venv
+  shell: |
+    python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
+    "{{python_venv_path}}/{{python_applications}}"/bin/python3 -m pip install --upgrade pip
+
+## install apps
+- name: Install tensorflow
+  pip: 
+    name: tensorflow
+    virtualenv: "{{python_venv_path}}/{{python_applications}}"
+
+- name: Copy python_env.sh and tensorflow.service file 
+  template:
+    src: '{{item.src}}'
+    dest: '{{item.dest}}'
+  with_items:
+    - {src: tensorflow_app.service,dest: /lib/systemd/system/tensorflow.service}
+    - {src: tensorflow_test.py,dest: /data/apps/tensorflow/}
+
+- name: restatrt and enabled tensorflow
+  service:
+    name: tensorflow
+    state: restarted
+    enabled: yes
+ 
+- name: Check tensorflow version
+  shell: sudo echo "tensorflow version:" $(tensorboard --version_tb) |sudo tee -a /data/logs/install_version.txt
+  
+
+  
+
+
+
+

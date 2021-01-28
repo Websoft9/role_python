@@ -1,1 +1,4 @@
-
+- name: check_{{python_applications}}_service
+  debug:
+    var: check_{{python_applications}}_service.stdout
+  failed_when: false

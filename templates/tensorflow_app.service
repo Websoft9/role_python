@@ -1,0 +1,16 @@
+[Unit]
+Description=My {{python_applications}} app
+Requires=network.target
+After=network.target
+
+[Service]
+Type=simple
+Environment="TENSORFLOW_PATH={{python_venv_path}}/{{python_applications}}/bin"
+ExecStart=/bin/bash -c 'source $TENSORFLOW_PATH/activate; $TENSORFLOW_PATH/tensorboard --logdir=/data/logs --port {{python_applications_tensorflow.port}} --bind_all'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+
+
