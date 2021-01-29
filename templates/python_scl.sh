@@ -1,1 +1,1 @@
-source /opt/rh/{{python_version_meta[python_version].RedHat}}/enable
+source /opt/rh/{{python_version_meta[python_version].RedHat.version}}/enable
