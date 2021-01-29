@@ -3,7 +3,26 @@
     name: "{{python_version_meta[python_version].RedHat}}"
     update_cache: yes
 
+- block:
+  - name: Create link for python3
+    file:
+      src: '{{item.src}}'
+      dest: '{{item.dest}}'
+      state: link
+    with_items:
+      - {src: '/opt/rh/{{python_version_meta[python_version].RedHat}}/root/bin/{{python_version}}',dest: /usr/bin/}  
+      - {src: '/opt/rh/{{python_version_meta[python_version].RedHat}}/root/bin/pip3',dest: /usr/bin/} 
 
+  - name: copy python_scl.sh
+    template:
+      src: python_scl.sh
+      dest: /etc/profile.d
+
+  - name: Enable python3
+    shell: source /etc/profile.d/python_scl.sh
+    args:
+      executable: /bin/bash
+  when: python_version_meta[python_version].RedHat.SCL 
   
   
 

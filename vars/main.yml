@@ -1,13 +1,17 @@
+# scl repo need create link
 python_version_meta:
   "3.6":
      Debian: "python3.6"
      RedHat: "python36"
+       SCL:  false
   "3.7":
      Debian: "python3.7"
      RedHat: ""
+       SCL:  false
   "3.8":
      Debian: "python3.8"
-     RedHat: ""
-
+     RedHat: "rh-python38" 
+       SCL:  true
+    
 
     
