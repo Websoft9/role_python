@@ -10,8 +10,8 @@
       dest: '{{item.dest}}'
       state: link
     with_items:
-      - {src: '/opt/rh/{{python_version_meta[python_version].RedHat}}/root/bin/python{{python_version}}',dest: '/usr/bin/{{python_version}}'}  
-      - {src: '/opt/rh/{{python_version_meta[python_version].RedHat}}/root/bin/pip3',dest: /usr/bin/pip3} 
+      - {src: '/opt/rh/{{python_version_meta[python_version].RedHat.version}}/root/bin/python{{python_version}}',dest: '/usr/bin/{{python_version}}'}  
+      - {src: '/opt/rh/{{python_version_meta[python_version].RedHat.version}}/root/bin/pip3',dest: /usr/bin/pip3} 
 
   - name: copy python_scl.sh
     template:
