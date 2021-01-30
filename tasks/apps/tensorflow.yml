@@ -7,8 +7,11 @@
 ## install apps
 - name: Install tensorflow
   pip: 
-    name: tensorflow
+    name: '{items}'
     virtualenv: "{{python_venv_path}}/{{python_applications}}"
+  with_items: 
+  - tensorflow
+  - tfx
 
 - name: Copy python_env.sh and tensorflow.service file 
   template:
