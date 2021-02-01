@@ -6,8 +6,7 @@ After=network.target
 [Service]
 KillSignal=SIGQUIT
 WorkingDirectory={{python_venv_path}}/django
-Environment="DJANGO_PATH={{python_venv_path}}/django/bin"
-ExecStart=$DJANGO_PATH/uwsgi --ini {{python_venv_path}}/django/django.ini
+ExecStart={{python_venv_path}}/django/bin/uwsgi --ini {{python_venv_path}}/django/django.ini
 Restart=always
 Type=notify
 NotifyAccess=all

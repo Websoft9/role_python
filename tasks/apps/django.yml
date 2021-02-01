@@ -19,11 +19,6 @@
     - django
     - uwsgi
     
-- name: copy python_env.sh
-  template:
-    src: python_env.sh 
-    dest: /etc/profile.d
-
 - name: Create Demo Project
   shell: |
     rm -rf django_project
