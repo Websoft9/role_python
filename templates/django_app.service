@@ -1,13 +1,13 @@
 [Unit]
-Description=My {{python_applications}} app
+Description=My django app
 Requires=network.target 
 After=network.target
 
 [Service]
 KillSignal=SIGQUIT
 WorkingDirectory={{python_venv_path}}/django
-Environment="DJANGO_PATH={{python_venv_path}}/{{python_applications}}/bin"
-ExecStart=$DJANGO_PATH/uwsgi --ini {{python_venv_path}}/{{python_applications}}/django.ini
+Environment="DJANGO_PATH={{python_venv_path}}/django/bin"
+ExecStart=$DJANGO_PATH/uwsgi --ini {{python_venv_path}}/django/django.ini
 Restart=always
 Type=notify
 NotifyAccess=all
