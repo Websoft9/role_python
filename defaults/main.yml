@@ -1,3 +1,5 @@
+#support:  centos 3.6 3.8 
+#support:  ubuntu 3.6 3.7 3.8 
 python_version: "3.6"
 
 python_venv_path: "/data/apps"
@@ -7,9 +9,9 @@ python_applications: []
   # - tensorflow
 
 python_applications_tensorflow: 
-  port: "6006"
+  port: "6007"
 
 python_applications_django: 
   port: "8000"
-  sqlite3_down_url: "http://www.sqlite.org/2020/sqlite-autoconf-3340000.tar.gz"
+  
 

@@ -1,9 +1,29 @@
 - name: Install python3
   yum:
-    name: "{{python_version_meta[python_version].RedHat}}"
+    name: "{{python_version_meta.RedHat[python_version]}}"
     update_cache: yes
 
+- block:
+  - name: Create link for python3
+    file:
+      src: '{{item.src}}'
+      dest: '{{item.dest}}'
+      state: link
+      force: yes
+    with_items:
+      - {src: '/opt/rh/{{python_version_meta.RedHat[python_version]}}/root/bin/python{{python_version}}',dest: '/usr/bin/python{{python_version}}'}  
+      - {src: '/opt/rh/{{python_version_meta.RedHat[python_version]}}/root/bin/pip3',dest: /usr/bin/pip3} 
 
+  - name: copy python_scl.sh
+    template:
+      src: python_scl.sh
+      dest: /etc/profile.d
+
+  - name: Enable python3
+    shell: source /etc/profile.d/python_scl.sh
+    args:
+      executable: /bin/bash
+  when: python_version == "3.8"
   
   
 

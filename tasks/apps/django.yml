@@ -66,7 +66,7 @@
 
 # check 
 - name: Check django version
-  shell: sudo echo "django version:" $({{python_venv_path}}/{{python_applications}}/django-admin  version) |sudo tee -a /data/logs/install_version.txt
+  shell: sudo echo "django version:" $({{python_venv_path}}/{{python_applications}}/bin/django-admin  version) |sudo tee -a /data/logs/install_version.txt
 
 - name: Check django Service
   shell: systemctl status django | grep Active*

@@ -9,7 +9,7 @@
     dest: '{{item.dest}}'
     state: link
   with_items:
-    - {src: /etc/ansible,dest: /data/config/}
+    - {src: /etc/ansible/ansible.cfg,dest: /data/config/ansible.cfg}
 
 - name: Check ansible version
   shell: sudo echo $(ansible  --version |sed -n 1p) |sudo tee -a /data/logs/install_version.txt
