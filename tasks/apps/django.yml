@@ -1,20 +1,20 @@
 # prepare_installation
 - name: Create python_applications dir on venv
   file:
-    path: "{{python_venv_path}}/{{python_applications}}"
+    path: "{{python_venv_path}}/django"
     state: directory
   
 - name: Upgrade pip3 on venv
   shell: |
-    python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
-    "{{python_venv_path}}/{{python_applications}}"/bin/python3 -m pip install --upgrade pip
+    python3 -m venv --system-site-packages "{{python_venv_path}}/django"
+    "{{python_venv_path}}/django"/bin/python3 -m pip install --upgrade pip
     
 ## install apps
 - name: Install Django and uwsgi
   pip: 
     name: "{{item}}"
-    virtualenv: "{{python_venv_path}}/{{python_applications}}"
-    virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}/{{python_applications}}"
+    virtualenv: "{{python_venv_path}}/django"
+    virtualenv_command: python3 -m venv --system-site-packages "{{python_venv_path}}/django"
   with_items:
     - django
     - uwsgi
@@ -29,13 +29,13 @@
     rm -rf django_project
     ./bin/django-admin startproject django_project
   args:
-    chdir: "{{python_venv_path}}/{{python_applications}}"
+    chdir: "{{python_venv_path}}/django"
 
 ## configure
 - name: Create link for django
   file: 
-    src: '{{python_venv_path}}/{{python_applications}}/'
-    dest: '/data/wwwroot/{{python_applications}}'
+    src: '{{python_venv_path}}/django/'
+    dest: '/data/wwwroot/django'
     state: link
     force: yes
       
@@ -50,7 +50,7 @@
 
 - name: Open Internet access
   lineinfile:
-      dest: "{{python_venv_path}}/{{python_applications}}/django_project/django_project/settings.py"
+      dest: "{{python_venv_path}}/django/django_project/django_project/settings.py"
       regexp: "^ALLOWED_HOSTS .*"
       line: "ALLOWED_HOSTS = ['*']"
       backrefs: yes  
@@ -66,7 +66,7 @@
 
 # check 
 - name: Check django version
-  shell: sudo echo "django version:" $({{python_venv_path}}/{{python_applications}}/bin/django-admin  version) |sudo tee -a /data/logs/install_version.txt
+  shell: sudo echo "django version:" $({{python_venv_path}}/django/bin/django-admin  version) |sudo tee -a /data/logs/install_version.txt
 
 - name: Check django Service
   shell: systemctl status django | grep Active*
