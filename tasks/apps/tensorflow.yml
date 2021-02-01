@@ -16,7 +16,7 @@
     dest: '{{item.dest}}'
   with_items:
     - {src: tensorflow_app.service,dest: /lib/systemd/system/tensorflow.service}
-    - {src: tensorflow_test.py,dest: /data/apps/tensorflow/}
+    - {src: tensorflow_test.py,dest: /data/apps/tensorflow/tensorflow_test.py}
 
 - name: restatrt and enabled tensorflow
   service:
