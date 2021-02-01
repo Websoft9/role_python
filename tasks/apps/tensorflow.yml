@@ -7,11 +7,8 @@
 ## install apps
 - name: Install tensorflow
   pip: 
-    name: '{items}'
+    name: 'tensorflow'
     virtualenv: "{{python_venv_path}}/{{python_applications}}"
-  with_items: 
-  - tensorflow
-  - tfx
 
 - name: Copy python_env.sh and tensorflow.service file 
   template:
@@ -28,7 +25,7 @@
     enabled: yes
  
 - name: Check tensorflow version
-  shell: sudo echo "tensorflow version:" $(tensorboard --version_tb) |sudo tee -a /data/logs/install_version.txt
+  shell: sudo echo "tensorflow version:" $({{python_venv_path}}/{{python_applications}}/bin/tensorboard --version_tb) |sudo tee -a /data/logs/install_version.txt
   
 
   
