@@ -11,14 +11,14 @@
   with_items:
     - {src: /etc/ansible/ansible.cfg,dest: /data/config/ansible.cfg}
 
-- name: Get ansible cli 
-  shell: command -v ansible
+- name: Get ansible cli
+  stat: path=/usr/bin/ansible
   register: ansible_stat
 
 - name: Check whether ansible exists
   fail:
     msg: "ansible was not install successful"
-  when: ansible_stat
+  when: not ansible_stat.stat.exists
 
 - name: Check ansible version
   shell: sudo echo $(ansible  --version |sed -n 1p) |sudo tee -a /data/logs/install_version.txt
