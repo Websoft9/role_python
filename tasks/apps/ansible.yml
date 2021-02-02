@@ -3,6 +3,10 @@
     name: [ansible,requests,docker,PyMySQL,psycopg2-binary]
     executable: pip3
 
+- name: Install ansible on amazon-linux
+  shell: amazon-linux-extras install ansible2
+  when: ansible_distribution == "Amazon"
+
 - name: Create link for ansible
   file:
     src: '{{item.src}}'
