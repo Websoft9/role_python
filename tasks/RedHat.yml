@@ -4,6 +4,11 @@
     update_cache: yes
 
 - block:
+## pip needs to install Python-devel to install uwsgi
+  - name: Install rh-python38-python-devel
+    yum:
+      name: "rh-python38-python-devel"
+
   - name: Create link for python3
     file:
       src: '{{item.src}}'
