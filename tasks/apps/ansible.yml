@@ -18,14 +18,15 @@
     - {src: /etc/ansible/ansible.cfg,dest: /data/config/ansible.cfg}
     - {src: /data/apps/ansible/ansible.log,dest: /data/logs/ansible}
 
-- name: Get ansible cli
-  stat: path=/usr/bin/ansible
-  register: ansible_stat
+- block:
+  - name: Get ansible cli
+    stat: path=/usr/bin/ansible
+    register: ansible_stat
 
-- name: Check whether ansible exists
-  fail:
-    msg: "ansible was not install successful"
-  when: not ansible_stat.stat.exists
+  - name: Check whether ansible exists
+    fail:
+      msg: "ansible was not install successful"
+    when: not ansible_stat.stat.exists
 
 - name: Check ansible version
   shell: sudo echo $(ansible  --version |sed -n 1p) |sudo tee -a /data/logs/install_version.txt
