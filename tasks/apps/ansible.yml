@@ -3,6 +3,12 @@
     name: [requests,docker,PyMySQL,psycopg2-binary]
     executable: pip3
 
+- name: Open Internet access
+  lineinfile:
+      dest: "/etc/ansible/ansible.cfg"
+      regexp: "#log_path = /var/log/ansible.log"
+      line: "log_path = /data/apps/ansible/ansible.log"
+
 - name: Create link for ansible
   file:
     src: '{{item.src}}'
@@ -10,6 +16,7 @@
     state: link
   with_items:
     - {src: /etc/ansible/ansible.cfg,dest: /data/config/ansible.cfg}
+    - {src: /data/apps/ansible/ansible.log,dest: /data/logs/ansible}
 
 - name: Get ansible cli
   stat: path=/usr/bin/ansible
