@@ -19,9 +19,8 @@
       regexp: "#log_path = /var/log/ansible.log"
       line: "log_path = /data/apps/ansible/ansible.log"
 
-- name: Use ansible cli create a log file
-  shell: ansible
-  failed_when: yes
+- name: Run ansible cli for create log file
+  shell: ansible --version
 
 - name: Create link for ansible
   file:
