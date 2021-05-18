@@ -1,6 +1,5 @@
-# support:  centos7     3.6 3.8     (amazon linux2 not support python3.6)  
-# support:  ubuntu18.04 3.6 3.7 3.8  
-# support:  ubuntu20.04 3.8 3.9
+#support:  centos 3.6 3.8 
+#support:  ubuntu 3.6 3.7 3.8 
 python_version: "3.8"
 
 python_venv_path: "/data/apps"
