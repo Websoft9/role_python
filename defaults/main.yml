@@ -1,6 +1,6 @@
 #support:  centos 3.6 3.8 
 #support:  ubuntu 3.6 3.7 3.8 
-python_version: "3.6"
+python_version: "3.8"
 
 python_venv_path: "/data/apps"
  
