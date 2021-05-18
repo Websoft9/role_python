@@ -6,7 +6,8 @@ After=network.target
 [Service]
 Type=simple
 Environment="TENSORFLOW_PATH={{python_venv_path}}/tensorflow/bin"
-ExecStart=/bin/bash -c 'source $TENSORFLOW_PATH/activate; $TENSORFLOW_PATH/tensorboard --logdir=/data/logs --port {{python_applications_tensorflow.port}} --bind_all'
+# To open up extranet access, change --host localhost to --bind_all
+ExecStart=/bin/bash -c 'source $TENSORFLOW_PATH/activate; $TENSORFLOW_PATH/tensorboard --logdir=/data/logs --port {{python_applications_tensorflow.port}} --host localhost'
 Restart=on-failure
 
 [Install]
