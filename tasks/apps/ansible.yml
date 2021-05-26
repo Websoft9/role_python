@@ -33,7 +33,7 @@
     dest: '{{item.dest}}'
     state: link
   with_items:
-    - {src: /etc/ansible/ansible.cfg,dest: /data/config/ansible.cfg}
+    - {src: /usr/local/bin/ansible,dest: /usr/bin/ansible}
     - {src: /data/apps/ansible/ansible.log,dest: /data/logs/ansible}
 
 - name: Check ansible version
