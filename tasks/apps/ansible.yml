@@ -17,13 +17,7 @@
   pip:
     name: [ansible,requests,docker,PyMySQL,psycopg2-binary]
     executable: pip3
-    
-- name: Open Internet access
-  lineinfile:
-      dest: "/etc/ansible/ansible.cfg"
-      regexp: "#log_path = /var/log/ansible.log"
-      line: "log_path = /data/apps/ansible/ansible.log"
-
+  
 - name: Run ansible cli for create log file
   shell: ansible --version
 
@@ -34,7 +28,6 @@
     state: link
   with_items:
     - {src: /usr/local/bin/ansible,dest: /usr/bin/ansible}
-    - {src: /data/apps/ansible/ansible.log,dest: /data/logs/ansible}
 
 - name: Check ansible version
   shell: sudo echo $(ansible  --version |sed -n 1p) |sudo tee -a /data/logs/install_version.txt
