@@ -17,17 +17,7 @@
   pip:
     name: [ansible,requests,docker,PyMySQL,psycopg2-binary]
     executable: pip3
-
-- block:
-  - name: Get ansible cli
-    stat: path=/usr/bin/ansible
-    register: ansible_stat
-
-  - name: Check whether ansible exists
-    fail:
-      msg: "ansible was not install successful"
-    when: not ansible_stat.stat.exists
-
+    
 - name: Open Internet access
   lineinfile:
       dest: "/etc/ansible/ansible.cfg"
