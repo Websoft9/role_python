@@ -1,10 +1,7 @@
 - name: Create ansible config dir
   file:
-    path: '{{item}}'
+    path: /etc/ansible
     state: directory
-    recurse: yes
-  with_items:
-    - '/etc/ansible'
 
 - name: Uninstall ansible
   yum: 
