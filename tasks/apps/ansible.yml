@@ -1,3 +1,11 @@
+- name: Create ansible config dir
+  file:
+    path: '{{item}}'
+    state: directory
+    recurse: yes
+  with_items:
+    - /etc/ansible
+
 - name: Uninstall ansible
   yum: 
     name: ansible
@@ -17,6 +25,29 @@
   pip:
     name: [ansible,requests,docker,PyMySQL,psycopg2-binary]
     executable: pip3
+
+- name: Copy ansible config file 
+  copy:
+    src: ansible.cfg
+    dest: /etc/ansible/ansible.cfg
+
+- name: Open Internet access
+  lineinfile:
+      dest: "/etc/ansible/ansible.cfg"
+      regexp: "#log_path = /var/log/ansible.log"
+      line: "log_path = /data/apps/ansible/ansible.log"
+
+- name: Run ansible cli for create log file
+  shell: ansible --version
+
+- name: Create link for ansible
+  file:
+    src: '{{item.src}}'
+    dest: '{{item.dest}}'
+    state: link
+  with_items:
+    - {src: /etc/ansible/ansible.cfg,dest: /data/config/ansible.cfg}
+    - {src: /data/apps/ansible/ansible.log,dest: /data/logs/ansible}
   
 - name: Check ansible version
   shell: sudo echo $(ansible  --version |sed -n 1p) |sudo tee -a /data/logs/install_version.txt
