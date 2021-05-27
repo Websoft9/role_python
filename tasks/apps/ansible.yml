@@ -1,13 +1,7 @@
-- name: Create ansible config dir
-  file:
-    path: /etc/ansible
-    state: directory
-
 - name: Uninstall ansible
   yum: 
     name: ansible
     state: absent
-    
   when: ansible_os_family == "RedHat"
 
 - name: Uninstall ansible
@@ -22,6 +16,11 @@
   pip:
     name: [ansible,requests,docker,PyMySQL,psycopg2-binary]
     executable: pip3
+
+- name: Create ansible config dir
+  file:
+    path: /etc/ansible
+    state: directory
 
 - name: Copy ansible config file 
   copy:
