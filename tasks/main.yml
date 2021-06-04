@@ -8,16 +8,16 @@
     
 - name: Upgrade pip3
   shell: |
-    sourse /etc/profile.d/python_alias.sh 
+    source /etc/profile.d/python_alias.sh 
     python3 -m pip install --upgrade pip
   args:
     executable: /bin/bash 
 
 - name: Check Python version
   shell: |
-    sudo echo  $(python2 -V) |sudo tee -a /data/logs/install_version.txt
-    sudo echo  $(python3 -V) |sudo tee -a /data/logs/install_version.txt 
-    sudo echo  $(pip3 -V) |sudo tee -a /data/logs/install_version.txt
+    source /etc/profile.d/python_scl.sh
+    sudo echo "python3 version:" $(python3 -V) |sudo tee -a /data/logs/install_version.txt 
+    sudo echo "pip version:" $(pip3 -V) |sudo tee -a /data/logs/install_version.txt
 
 # Python application installation
 - name: Install Python applications

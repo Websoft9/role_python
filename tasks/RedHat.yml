@@ -21,7 +21,7 @@
       force: yes
     with_items:
       - {src: '/opt/rh/{{python_version_meta.RedHat[python_version]}}/root/bin/python{{python_version}}',dest: '/usr/bin/python{{python_version}}'}  
-      - {src: '/opt/rh/{{python_version_meta.RedHat[python_version]}}/root/bin/pip3',dest: /usr/bin/pip3} 
+      - {src: '/opt/rh/{{python_version_meta.RedHat[python_version]}}/root/bin/pip-3.8',dest: /usr/bin/pip3} 
 
   - name: copy python_scl.sh
     template:
