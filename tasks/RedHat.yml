@@ -3,6 +3,10 @@
     name: "{{python_version_meta.RedHat[python_version]}}"
     update_cache: yes
 
+- name: Install python3-devel
+  yum: 
+    name: python3-devel
+
 - block:
 ## pip needs to install Python-devel to install uwsgi
   - name: Install rh-python38-python-devel
