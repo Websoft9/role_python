@@ -27,7 +27,10 @@
 - name: Check tensorflow version
   shell: sudo echo "tensorflow version:" $({{python_venv_path}}/tensorflow/bin/tensorboard --version_tb) |sudo tee -a /data/logs/install_version.txt
   
-
+- name: Check tensorflow Service
+  shell: systemctl status tensorflow | grep Active*
+  register: check_tensorflow_service
+  notify: check_tensorflow_service
   
 
 

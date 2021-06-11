@@ -1,4 +1,5 @@
-- name: check_{{python_applications}}_service
+- name: check_{{items}}_service
   debug:
-    var: check_{{python_applications}}_service.stdout
+    var: check_{{items}}_service.stdout
+  with_items: "{{python_applications}}"
   failed_when: false
