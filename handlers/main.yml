@@ -1,5 +1,7 @@
-- name: check_{{items}}_service
+- name: check_django_service
   debug:
-    var: check_{{items}}_service.stdout
-  with_items: "{{python_applications}}"
-  failed_when: false
+    var: check_django_service.stdout
+
+- name: check_tensorflow_service
+  debug:
+    var: check_tensorflow_service.stdout
