@@ -15,7 +15,7 @@
 
 - name: Check Python version
   shell: |
-    source /etc/profile.d/python_scl.sh
+    source /etc/profile.d/python_scl.sh || true
     sudo echo "python3 version:" $(python3 -V) |sudo tee -a /data/logs/install_version.txt 
     sudo echo "pip version:" $(pip3 -V) |sudo tee -a /data/logs/install_version.txt
 
