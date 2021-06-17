@@ -4,10 +4,8 @@
     path: "{{python_venv_path}}/django"
     state: directory
   
-- name: Upgrade pip3 on venv
-  shell: |
-    python3 -m venv --system-site-packages "{{python_venv_path}}/django"
-    "{{python_venv_path}}/django"/bin/python3 -m pip install --upgrade pip
+- name: Create python venv for django
+  shell: python3 -m venv --system-site-packages --upgrade-deps "{{python_venv_path}}/django"
     
 ## install apps
 - name: Install Django and uwsgi
