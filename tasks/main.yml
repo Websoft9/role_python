@@ -1,17 +1,25 @@
-- name: Install this role on {{ansible_os_family}}
-  include: "{{ansible_os_family}}.yml"
+- name: Get system python version
+  shell: >
+    python3 --version |awk '{print $2}' |cut -c1-3
+  register: python_ver
 
-- name: copy python_alias.sh
-  template:
-    src: python_alias.sh
-    dest: /etc/profile.d
+- block: 
+  - name: Install this role on {{ansible_os_family}}
+    include: "{{ansible_os_family}}.yml"
     
-- name: Upgrade pip3
-  shell: |
-    source /etc/profile.d/python_alias.sh 
-    python3 -m pip install --upgrade pip
-  args:
-    executable: /bin/bash 
+  - name: copy python_alias.sh
+    template:
+      src: python_alias.sh
+      dest: /etc/profile.d
+      
+  - name: Upgrade pip3
+    shell: |
+      source /etc/profile.d/python_alias.sh 
+      python3 -m pip install --upgrade pip
+    args:
+      executable: /bin/bash 
+
+  when: python_version is version(python_ver.stdout,">")
 
 - name: Check Python version
   shell: |
