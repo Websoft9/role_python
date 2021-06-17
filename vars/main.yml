@@ -1,4 +1,4 @@
-# scl repo need create link
+# Install meta
 python_version_meta:
   Debian:
      "3.6":  "python3.6"
@@ -9,4 +9,7 @@ python_version_meta:
      "3.7":  "python3"
      "3.8":  "rh-python38"
 
-    
+python_support_version:
+  CentOS: ['3.8']
+  amazon: ['3.7']
+  Debian: ['3.8','3.9']
