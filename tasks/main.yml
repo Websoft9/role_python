@@ -25,8 +25,10 @@
 
 - name: Check Python version
   shell: |
-    sudo echo "python3 version:" $(bash -lc "python3 --version") |sudo tee -a /data/logs/install_version.txt
-    sudo echo "pip version:" $(bash -lc "pip3 --version") |sudo tee -a /data/logs/install_version.txt
+    source /etc/profile.d/python_alias.sh
+    [ -f /etc/profile.d/python_scl.sh ] && source /etc/profile.d/python_scl.sh
+    sudo echo "python3 version:" $(python3 --version) |sudo tee -a /data/logs/install_version.txt
+    sudo echo "pip version:" $(pip3 --version) |sudo tee -a /data/logs/install_version.txt
 
 # Python application installation
 - name: Install Python applications
