@@ -11,5 +11,5 @@ python_version_meta:
 
 python_support_version:
   CentOS: ['3.8']
-  amazon: ['3.7']
+  Amazon: ['3.7']
   Debian: ['3.8','3.9']
