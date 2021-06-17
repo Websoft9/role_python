@@ -12,7 +12,7 @@ python_applications_tensorflow:
 python_applications_django: 
   port: "8000"
   
-python_support_version:
-  centos: ['3.8']
+python_support_meta:
+  CentOS: ['3.8']
   amazon: ['3.7']
   Debian: ['3.8','3.9']
