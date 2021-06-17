@@ -1,6 +1,8 @@
 ## prepare_installation
-- name: Upgrade pip3 on venv
-  shell: python3 -m venv --system-site-packages --upgrade-deps "{{python_venv_path}}/tensorflow"
+- name: Create venv and Upgrade pip3 on venv for django
+  shell: |
+    python3 -m venv --system-site-packages "{{python_venv_path}}/tensorflow"
+    "{{python_venv_path}}/tensorflow"/bin/python3 -m pip install --upgrade pip
 
 ## install apps
 - name: Install tensorflow
