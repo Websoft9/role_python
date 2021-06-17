@@ -1,12 +1,12 @@
 - name: Get system python version
   shell: >
     python3 --version |awk '{print $2}' |cut -c1-3
-  register: python_ver
+  register: python_sys_version
 
-- debug: var=python_ver.stdout
+- debug: var=python_sys_version.stdout
 
 - fail: msg="The Python version is lower than the system's own Python,select a higher Python version!"
-  when: python_version is version(python_ver.stdout,"<")
+  when: python_version is version(python_sys_version.stdout,"<")
 
 - name: Install this role on {{ansible_os_family}}
   include: "{{ansible_os_family}}.yml"
