@@ -1,14 +1,15 @@
-# Install meta
+# install meta
 python_version_meta:
   Debian:
-     "3.6":  "python3.6"
      "3.7":  "python3.7"
-     "3.8":  "python3.8"   
+     "3.8":  "python3.8" 
+     "3.9":  "python3.9"  
   RedHat:
-     "3.6":  "python36"
      "3.7":  "python37"
      "3.8":  "rh-python38"
+     "3.9":  "python39" 
 
+# support meta
 python_support_version:
   CentOS: ['3.8']
   Amazon: ['3.7']
