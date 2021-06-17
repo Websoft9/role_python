@@ -12,7 +12,9 @@
   include: "{{ansible_os_family}}.yml"
   
 - name: Switch to Python Version
-  shell: update-alternatives --install /usr/bin/python3 python3 /usr/bin/python{{python_version}} 1000
+  shell: |
+    update-alternatives --install /usr/bin/python python /usr/bin/python{{python_version}} 1000
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python{{python_version}} 1000
     
 - name: Upgrade pip3
   shell: python3 -m pip install --upgrade pip
