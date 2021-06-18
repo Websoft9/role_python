@@ -11,18 +11,20 @@
 - name: Install this role on {{ansible_os_family}}
   include: "{{ansible_os_family}}.yml"
   
-- name: Switch to Python Version
-  shell: update-alternatives --install /usr/bin/python3 python3 /usr/bin/python{{python_version}} 1000
-    
+- name: copy python_alias.sh
+  template:
+    src: python_alias.sh
+    dest: /etc/profile.d
+
 - name: Upgrade pip3
-  shell: python3 -m pip install --upgrade pip
+  shell: python{{python_version}} -m pip install --upgrade pip
   args:
     executable: /bin/bash 
 
 - name: Check Python version
   shell: |
-    sudo echo "python3 version:" $(python3 --version) |sudo tee -a /data/logs/install_version.txt
-    sudo echo "pip version:" $(pip3 --version) |sudo tee -a /data/logs/install_version.txt
+    sudo echo "python3 version:" $(python{{python_version}} --version) |sudo tee -a /data/logs/install_version.txt
+    sudo echo "pip3 version:" $(pip{{python_version}} --version) |sudo tee -a /data/logs/install_version.txt
 
 # Python application installation
 - name: Install Python applications
