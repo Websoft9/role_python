@@ -19,16 +19,6 @@
     - django
     - uwsgi
     
-<<<<<<< HEAD
-=======
-- name: Create Demo Project
-  shell: |
-    rm -rf django_project
-    ./bin/django-admin startproject django_project
-  args:
-    chdir: "{{python_venv_path}}/django"
-
->>>>>>> origin/main
 ## configure
 - name: Create link for django
   file: 
