@@ -19,13 +19,6 @@
     - django
     - uwsgi
     
-- name: Apply migrations on your project
-  shell: |
-    source {{python_venv_path}}/django/bin/activate
-    python manage.py migrate
-  args:
-    chdir: "{{python_venv_path}}/django/django_project"
-
 ## configure
 - name: Create link for django
   file: 
