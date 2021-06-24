@@ -27,9 +27,11 @@
     chdir: "{{python_venv_path}}/django"
 
 - name: Apply migrations on your project
-  shell: ./bin/python{{python_version}} manage.py migrate
+  shell: |
+    source {{python_venv_path}}/django/bin/activate
+    python manage.py migrate
   args:
-    chdir: "{{python_venv_path}}/django"
+    chdir: "{{python_venv_path}}/django/django_project"
 
 ## configure
 - name: Create link for django
