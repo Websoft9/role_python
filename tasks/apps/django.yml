@@ -24,7 +24,7 @@
     rm -rf django_project
     ./bin/django-admin startproject django_project
   args:
-    chdir: "{{python_venv_path}}/{{python_applications}}"
+    chdir: "{{python_venv_path}}/django"
     
 ## configure
 - name: Create link for django
