@@ -12,7 +12,7 @@
 - block:
   - name: Install python3
     shell: |     
-      sudo amazon-linux-extras install python{{ python_version }}
+      sudo amazon-linux-extras install python{{ python_version }} -y
       sudo yum remove python3.7 -y
       sudo rm -rf /usr/bin/python
       sudo rm -rf /usr/bin/python3
