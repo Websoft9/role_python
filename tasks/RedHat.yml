@@ -20,6 +20,8 @@
       sudo rm -rf /usr/bin/pip3
       sudo ln -s /usr/bin/pip3.8 /usr/bin/pip
       sudo ln -s /usr/bin/pip3.8 /usr/bin/pip3
+      sudo yum remove python3.7 -y
+      sudo yum install python3-devel -y
   when: ansible_distribution == 'Amazon'
 
 - block:
