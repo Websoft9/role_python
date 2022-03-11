@@ -1,28 +1,11 @@
-- block:
-  - name: Install python3
-    yum:
-      name: "{{python_version_meta.RedHat[python_version]}}"
-      update_cache: yes
+- name: Install python3
+  yum:
+    name: "{{python_version_meta.RedHat[python_version]}}"
+    update_cache: yes
 
-  - name: Install python3-devel
-    yum: 
-      name: python3-devel
-  when: ansible_distribution != 'Amazon'
-
-- block:
-  - name: Install python3
-    shell: |     
-      sudo amazon-linux-extras install python{{ python_version }} -y
-      sudo yum remove python3.7 -y
-      sudo rm -rf /usr/bin/python
-      sudo rm -rf /usr/bin/python3
-      sudo ln -s /usr/bin/python3.8 /usr/bin/python
-      sudo ln -s /usr/bin/python3.8 /usr/bin/python3
-      sudo rm -rf /usr/bin/pip3
-      sudo ln -s /usr/bin/pip3.8 /usr/bin/pip
-      sudo ln -s /usr/bin/pip3.8 /usr/bin/pip3
-      sudo yum install python3-devel -y
-  when: ansible_distribution == 'Amazon'
+- name: Install python3-devel
+  yum: 
+    name: python3-devel
 
 - block:
 ## pip needs to install Python-devel to install uwsgi
@@ -49,9 +32,4 @@
     shell: source /etc/profile.d/python_scl.sh
     args:
       executable: /bin/bash
-  when: python_version == "3.8" and ansible_distribution != 'Amazon'
-  
-  
-
-  
-
+  when: python_version == "3.8"
